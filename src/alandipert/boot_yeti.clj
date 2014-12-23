@@ -5,8 +5,8 @@
             [boot.util :as util]))
 
 (def ^:private yeti-env
-  '{:repositories ["yeti-repo" "http://tailrecursion.com/~alan/yeti-repo/"]
-    :dependencies [yeti "0.9.9"]})
+  {:repositories ["yeti-repo" "https://dl.dropboxusercontent.com/u/12379861/yeti-repo/"]
+   :dependencies '[yeti "0.9.9"]})
 
 (core/deftask yeti
   "Compile Yeti source files."

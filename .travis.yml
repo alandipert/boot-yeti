@@ -6,4 +6,4 @@ install:
 - chmod 755 boot
 - ./boot -V
 - mv ./boot /usr/local/bin
-script: boot build-jar && cd example/ && boot build && java -jar target/yeti-example-1.0.0.jar 5
+script: boot build-jar && cd example/ && boot build && java -jar target/project.jar 5
