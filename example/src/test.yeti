@@ -1,0 +1,8 @@
+module fac.test;
+
+fac x = fold (*) 1 [1 .. x];
+
+class Main
+    static void main(String[] argv)
+        println (fac 5)
+end;
