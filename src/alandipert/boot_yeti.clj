@@ -2,15 +2,14 @@
   {:boot/export-tasks true}
   (:require [boot.pod  :as pod]
             [boot.core :as core]
-            [boot.util :as util]
-            [clojure.java.io :as io]))
+            [boot.util :as util]))
 
 (def ^:private yeti-env
-  '{:repositories ["yeti-dropbox" "http://tailrecursion.com/~alan/yeti-repo/"]
+  '{:repositories ["yeti-repo" "http://tailrecursion.com/~alan/yeti-repo/"]
     :dependencies [yeti "0.9.9"]})
 
 (core/deftask yeti
-  "Compile yeti files"
+  "Compile Yeti source files."
   []
   (let [tgt         (core/temp-dir!)
         compile-env (merge-with conj (core/get-env) yeti-env)
@@ -19,7 +18,7 @@
       (let [yeti-files  (->> fileset
                              core/input-files
                              (core/by-ext [".yeti"]))
-            yeti-argv   (->> (map (comp #(.getPath %) core/tmpfile) yeti-files)
+            yeti-argv   (->> (map #(.getPath (core/tmpfile %)) yeti-files)
                              (list* "-d" (.getPath tgt))
                              vec)]
         (core/empty-dir! tgt)

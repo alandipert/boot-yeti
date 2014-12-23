@@ -1,8 +1,14 @@
 module fac.test;
+import java.lang.Integer;
 
 fac x = fold (*) 1 [1 .. x];
 
 class Main
     static void main(String[] argv)
-        println (fac 5)
+        if length(argv) == 1 then
+           n = Integer#parseInt(argv[0]);
+           println (fac n)
+        else
+           println "Please supply the number to compute the factorial of." 
+        fi;
 end;
