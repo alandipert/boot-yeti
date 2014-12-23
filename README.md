@@ -2,8 +2,9 @@
 
 [![Clojars Project][1]][2]
 
-A work-in-progress [Boot] task for compiling [Yeti] programs.  See
-[the example build.boot](example/build.boot) for how to use it.
+Work-in-progress [Boot] task for compiling [Yeti] programs.
+
+See the [example build.boot](example/build.boot) for how to use it.
 
 **Note: The Yeti compiler only seems to work on Java 7.**
 
