@@ -11,7 +11,5 @@ Run:
 
     java -jar target/yeti-example-1.0.0.jar 5
 
-## Notes
-
-As far as I can tell the Yeti compiler only works on Java 7.
+**Note: The Yeti compiler only seems to work on Java 7.**
 
