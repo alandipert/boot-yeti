@@ -1,6 +1,7 @@
 # boot-yeti example project
 
-This is a tiny factorial calculator project based on an
+This is a tiny factorial calculator project written in [Yeti] that
+uses the [Boot] build tool.  It's based on an
 [example in the Yeti tutorial](http://dot.planet.ee/yeti/intro.html#public-classes).
 
 ## Continuously Compile, Run
@@ -17,3 +18,5 @@ This is a tiny factorial calculator project based on an
 
 **Note: The Yeti compiler only seems to work on Java 7.**
 
+[Boot]: http://boot-clj.com/
+[Yeti]: http://mth.github.io/yeti/
