@@ -12,7 +12,7 @@
 (def ^:private compile-env {:repositories repo :dependencies ['yeti version]})
 (def ^:private run-env {:repositories repo :dependencies ['yeti/yeti-lib version]})
 
-(defn copy [tf dir]
+(defn- copy [tf dir]
   (let [f (core/tmpfile tf)]
     (io/copy f (doto (io/file dir (:path tf)) io/make-parents))))
 
