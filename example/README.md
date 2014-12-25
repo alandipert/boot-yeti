@@ -3,11 +3,15 @@
 This is a tiny factorial calculator project based on an
 [example in the Yeti tutorial](http://dot.planet.ee/yeti/intro.html#public-classes).
 
-Compile the Yeti source and generate a jar:
+## Continuously Compile, Run
+
+    boot watch yeti run -m fac.Main -a 5
+
+## Create a Jar
 
     boot yeti uber jar -m fac.Main
 
-Run:
+## Run the Jar
 
     java -jar target/project.jar 5
 
