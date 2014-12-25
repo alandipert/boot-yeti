@@ -7,4 +7,4 @@ install:
 - mkdir -p "$HOME/.local/bin"
 - mv boot "$HOME/.local/bin"
 - export PATH="$HOME/.local/bin:$PATH"
-script: boot build-jar && cd example/ && boot build && java -jar target/project.jar 5
+script: boot build-jar && cd example/ && boot yeti uber jar -m fac.Main && java -jar target/project.jar 5
