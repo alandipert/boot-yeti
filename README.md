@@ -9,7 +9,7 @@ See the example project's [README](example/README.md) and
 
 **Note: The Yeti compiler only seems to work on Java 7.**
 
-[clojars-badge]: http://clojars.org/alandipert/boot-yeti/latest-version.svg?cache=4
+[clojars-badge]: http://clojars.org/alandipert/boot-yeti/latest-version.svg?cache=3
 [clojars-page]: http://clojars.org/alandipert/boot-yeti
 [travis-badge]: https://travis-ci.org/alandipert/boot-yeti.svg?branch=master
 [travis-build]: https://travis-ci.org/alandipert/boot-yeti

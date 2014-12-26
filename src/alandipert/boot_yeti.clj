@@ -3,7 +3,8 @@
   (:require [boot.pod  :as pod]
             [boot.core :as core]
             [boot.util :as util]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [alandipert.boot-yeti.util :refer [without-exiting]])
   (:refer-clojure :exclude [compile]))
 
 (def ^:private repo ["yeti-repo" "https://dl.dropboxusercontent.com/u/12379861/yeti-repo/"])
@@ -54,14 +55,11 @@
                                vec)]
           (core/empty-dir! tgt)
           (util/info "Compiling Yeti sources...\n")
-          (let [old-sm (System/getSecurityManager)]
-            (System/setSecurityManager ^SecurityManager yeti-sm)
-            (try
-              (pod/with-eval-in @compile-pod
-                (yeti.lang.compiler.yeti/main (into-array ~yeti-argv)))
-              (next-handler (-> fileset
-                                (core/add-resource tgt)
-                                (core/rm yeti-files)
-                                core/commit!))
-              (catch SecurityException _)
-              (finally (System/setSecurityManager old-sm)))))))))
+          (when (without-exiting
+                 (pod/with-eval-in @compile-pod
+                   (yeti.lang.compiler.yeti/main (into-array ~yeti-argv))))
+            (-> fileset
+                (core/add-resource tgt)
+                (core/rm yeti-files)
+                core/commit!
+                next-handler)))))))
