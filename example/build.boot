@@ -1,6 +1,6 @@
 (set-env!
  :source-paths #{"src"}
- :dependencies '[[alandipert/boot-yeti "0.9.9-5" :scope "test"]
+ :dependencies '[[alandipert/boot-yeti "0.9.9-6" :scope "test"]
                  [yeti/yeti-lib        "0.9.9"   :scope "runtime"]]
  :repositories '[["yeti-repo" "https://dl.dropboxusercontent.com/u/12379861/yeti-repo/"]])
 

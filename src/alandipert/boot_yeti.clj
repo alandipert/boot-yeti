@@ -10,8 +10,14 @@
 (def ^:private repo ["yeti-repo" "https://dl.dropboxusercontent.com/u/12379861/yeti-repo/"])
 (def ^:private version "0.9.9")
 
-(def ^:private compile-env {:repositories repo :dependencies ['yeti version]})
-(def ^:private run-env {:repositories repo :dependencies ['yeti/yeti-lib version]})
+(def ^:private compile-env
+  {:repositories [repo]
+   :dependencies [['yeti version]
+                  ['jline "0.9.94"]]})
+
+(def ^:private run-env
+  {:repositories [repo]
+   :dependencies [['yeti/yeti-lib version]]})
 
 (defn- copy [tf dir]
   (let [f (core/tmpfile tf)]
@@ -22,7 +28,7 @@
   [m main CLASSNAME sym   "The main class"
    a args ARGUMENTS [str] "String arguments to pass to the main class's main method"]
   (let [classdir (core/temp-dir!)
-        runners  (pod/pod-pool (merge-with conj (core/get-env) run-env))]
+        runners  (pod/pod-pool (merge-with into (core/get-env) run-env))]
     (core/with-pre-wrap fileset
       (let [class-files (->> fileset
                              core/output-files
@@ -37,30 +43,35 @@
       fileset)))
 
 (core/deftask yeti
-  "Compile Yeti source files."
-  []
+  "Compile Yeti source files or use the REPL."
+  [r repl bool "Run the Yeti REPL with JLine support"]
   (let [tgt         (core/temp-dir!)
-        env         (merge-with conj (core/get-env) compile-env)
+        env         (merge-with into (core/get-env) compile-env)
         compile-pod (future (pod/make-pod env))
         yeti-sm     (proxy [SecurityManager] []
                       (checkPermission [_])
                       (checkExit [status] (throw (SecurityException.))))]
     (fn [next-handler]
       (fn [fileset]
-        (let [yeti-files  (->> fileset
-                               core/input-files
-                               (core/by-ext [".yeti"]))
-              yeti-argv   (->> (map #(.getPath (core/tmpfile %)) yeti-files)
-                               (list* "-d" (.getPath tgt))
-                               vec)]
-          (core/empty-dir! tgt)
-          (util/info "Compiling Yeti sources...\n")
-          (when (without-exiting
-                 (pod/with-eval-in @compile-pod
-                   (yeti.lang.compiler.yeti/main (into-array ~yeti-argv)))
-                 true)
-            (-> fileset
-                (core/add-resource tgt)
-                (core/rm yeti-files)
-                core/commit!
-                next-handler)))))))
+        (if repl
+          ;; Run REPL with JLine
+          (pod/with-eval-in @compile-pod
+            (jline.ConsoleRunner/main (into-array ["yeti.lang.compiler.yeti"])))
+          ;; Compile files
+          (let [yeti-files  (->> fileset
+                                 core/input-files
+                                 (core/by-ext [".yeti"]))
+                yeti-argv   (->> (map #(.getPath (core/tmpfile %)) yeti-files)
+                                 (list* "-d" (.getPath tgt))
+                                 vec)]
+            (core/empty-dir! tgt)
+            (util/info "Compiling Yeti sources...\n")
+            (when (without-exiting
+                   (pod/with-eval-in @compile-pod
+                     (yeti.lang.compiler.yeti/main (into-array ~yeti-argv)))
+                   true)
+              (-> fileset
+                  (core/add-resource tgt)
+                  (core/rm yeti-files)
+                  core/commit!
+                  next-handler))))))))
