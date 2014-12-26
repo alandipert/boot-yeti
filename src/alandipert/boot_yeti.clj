@@ -57,7 +57,8 @@
           (util/info "Compiling Yeti sources...\n")
           (when (without-exiting
                  (pod/with-eval-in @compile-pod
-                   (yeti.lang.compiler.yeti/main (into-array ~yeti-argv))))
+                   (yeti.lang.compiler.yeti/main (into-array ~yeti-argv)))
+                 true)
             (-> fileset
                 (core/add-resource tgt)
                 (core/rm yeti-files)

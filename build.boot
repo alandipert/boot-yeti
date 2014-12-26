@@ -7,7 +7,7 @@
 (require '[adzerk.bootlaces :refer :all]
          '[alandipert.boot-yeti :refer [yeti]])
 
-(def +version+ "0.9.9-4")
+(def +version+ "0.9.9-5")
 
 (bootlaces! +version+)
 
