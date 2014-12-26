@@ -4,7 +4,8 @@
 
 A [Boot] task for compiling [Yeti] programs.
 
-See the [example build.boot](example/build.boot) for how to use it.
+See the example project's [README](example/README.md) and
+[build.boot](example/build.boot) for how to use it.
 
 **Note: The Yeti compiler only seems to work on Java 7.**
 
