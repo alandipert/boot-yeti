@@ -8,8 +8,7 @@ Run a Yeti REPL with [JLine] support:
 
     boot -d alandipert/boot-yeti yeti -r
 
-See the example project's [README](example/README.md) and
-[build.boot](example/build.boot) for more details.
+See the [example project](example/) for details.
 
 **Note: The Yeti compiler only seems to work on Java 7.**
 
