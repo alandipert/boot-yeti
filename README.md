@@ -4,8 +4,6 @@
 
 A [Boot] task for compiling [Yeti] programs.
 
-<img alt="Yeti REPL running" src="https://dl.dropboxusercontent.com/u/12379861/yetirepl.png"></img>
-
 Run a Yeti REPL with [JLine] support:
 
     boot -d alandipert/boot-yeti yeti -r
