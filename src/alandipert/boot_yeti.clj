@@ -4,43 +4,17 @@
             [boot.core :as core]
             [boot.util :as util]
             [clojure.java.io :as io]
-            [alandipert.boot-yeti.util :refer [without-exiting]])
+            [alandipert.boot-trinkets :refer [without-exiting]])
   (:refer-clojure :exclude [compile]))
 
-(def ^:private repo ["yeti-repo" "https://dl.dropboxusercontent.com/u/12379861/yeti-repo/"])
 (def ^:private version "0.9.9")
 
 (def ^:private compile-env
-  {:repositories [repo]
-   :dependencies [['yeti version]
+  {:dependencies [['alandipert/yeti version]
                   ['jline "0.9.94"]]})
 
 (def ^:private run-env
-  {:repositories [repo]
-   :dependencies [['yeti/yeti-lib version]]})
-
-(defn- copy [tf dir]
-  (let [f (core/tmpfile tf)]
-    (io/copy f (doto (io/file dir (:path tf)) io/make-parents))))
-
-(core/deftask run
-  "Add classes to a pod and run a main method."
-  [m main CLASSNAME sym   "The main class"
-   a args ARGUMENTS [str] "String arguments to pass to the main class's main method"]
-  (let [classdir (core/temp-dir!)
-        runners  (pod/pod-pool (merge-with into (core/get-env) run-env))]
-    (core/with-pre-wrap fileset
-      (let [class-files (->> fileset
-                             core/output-files
-                             (core/by-ext [".class"]))
-            main-sym    (symbol (str main) "main")]
-        ;; TODO - copy efficiently with fileset diff
-        (core/empty-dir! classdir)
-        (doseq [tmpfile class-files] (copy tmpfile classdir))
-        (pod/with-eval-in (runners :refresh)
-          (boot.pod/add-classpath ~(.getPath classdir))
-          (~main-sym (into-array String ~(vec args)))))
-      fileset)))
+  {:dependencies [['alandipert/yeti-lib version]]})
 
 (core/deftask yeti
   "Compile Yeti source files or use the REPL."
