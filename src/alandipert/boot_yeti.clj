@@ -3,8 +3,7 @@
   (:require [boot.pod  :as pod]
             [boot.core :as core]
             [boot.util :as util]
-            [clojure.java.io :as io]
-            [alandipert.boot-trinkets :refer [without-exiting]])
+            [clojure.java.io :as io])
   (:refer-clojure :exclude [compile]))
 
 (def ^:private version "0.9.9")
@@ -40,7 +39,7 @@
                                  vec)]
             (core/empty-dir! tgt)
             (util/info "Compiling Yeti sources...\n")
-            (when (without-exiting
+            (when (util/without-exiting
                    (pod/with-eval-in @compile-pod
                      (yeti.lang.compiler.yeti/main (into-array ~yeti-argv)))
                    true)
