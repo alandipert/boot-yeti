@@ -6,7 +6,7 @@
             [clojure.java.io :as io])
   (:refer-clojure :exclude [compile]))
 
-(def ^:private version "0.9.9")
+(def ^:private version "1.0.0-SNAPSHOT")
 
 (def ^:private compile-env
   {:dependencies [['alandipert/yeti version]

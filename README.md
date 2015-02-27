@@ -10,8 +10,6 @@ Run a Yeti REPL with [JLine] support:
 
 See the [example project](example/) for details.
 
-**Note: The Yeti compiler only seems to work on Java 7.**
-
 [clojars-badge]: http://clojars.org/alandipert/boot-yeti/latest-version.svg?cache=2
 [clojars-page]: http://clojars.org/alandipert/boot-yeti
 [travis-badge]: https://travis-ci.org/alandipert/boot-yeti.svg?branch=master

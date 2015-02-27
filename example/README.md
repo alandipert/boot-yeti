@@ -16,7 +16,5 @@ uses the [Boot] build tool.  It's based on an
 
     java -jar target/project.jar 5
 
-**Note: The Yeti compiler only seems to work on Java 7.**
-
 [Boot]: http://boot-clj.com/
 [Yeti]: http://mth.github.io/yeti/
