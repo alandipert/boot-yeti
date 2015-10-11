@@ -1,12 +1,12 @@
 (ns alandipert.boot-yeti
   {:boot/export-tasks true}
-  (:require [boot.pod  :as pod]
-            [boot.core :as core]
-            [boot.util :as util]
+  (:require [boot.pod        :as pod]
+            [boot.core       :as core]
+            [boot.util       :as util]
             [clojure.java.io :as io])
   (:refer-clojure :exclude [compile]))
 
-(def ^:private version "1.0.0-SNAPSHOT")
+(def ^:private version "0.9.9.1")
 
 (def ^:private compile-env
   {:dependencies [['alandipert/yeti version]
@@ -18,12 +18,9 @@
 (core/deftask yeti
   "Compile Yeti source files or use the REPL."
   [r repl bool "Run the Yeti REPL with JLine support"]
-  (let [tgt         (core/temp-dir!)
+  (let [tgt         (core/tmp-dir!)
         env         (merge-with into (core/get-env) compile-env)
-        compile-pod (future (pod/make-pod env))
-        yeti-sm     (proxy [SecurityManager] []
-                      (checkPermission [_])
-                      (checkExit [status] (throw (SecurityException.))))]
+        compile-pod (future (pod/make-pod env))]
     (fn [next-handler]
       (fn [fileset]
         (if repl
@@ -34,7 +31,7 @@
           (let [yeti-files  (->> fileset
                                  core/input-files
                                  (core/by-ext [".yeti"]))
-                yeti-argv   (->> (map #(.getPath (core/tmpfile %)) yeti-files)
+                yeti-argv   (->> (map #(.getPath (core/tmp-file %)) yeti-files)
                                  (list* "-d" (.getPath tgt))
                                  vec)]
             (core/empty-dir! tgt)

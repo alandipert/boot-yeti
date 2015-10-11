@@ -1,13 +1,11 @@
 (set-env!
-  :dependencies '[[org.clojure/clojure      "1.6.0"     :scope "provided"]
-                  [boot/core                "2.0.0-rc9" :scope "provided"]
-                  [adzerk/bootlaces         "0.1.11"    :scope "test"]]
-  :source-paths #{"src"})
+ :dependencies '[[adzerk/bootlaces "0.1.12" :scope "test"]]
+ :source-paths #{"src"})
 
 (require '[adzerk.bootlaces :refer :all]
          '[alandipert.boot-yeti :refer [yeti]])
 
-(def +version+ "1.0.0-0")
+(def +version+ "1.0.0-1")
 
 (bootlaces! +version+)
 
