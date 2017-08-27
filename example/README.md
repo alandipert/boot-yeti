@@ -10,7 +10,7 @@ uses the [Boot] build tool.  It's based on an
 
 ## Create a Jar
 
-    boot yeti uber jar -m fac.Main
+    boot yeti uber jar -m fac.Main target
 
 ## Run the Jar
 

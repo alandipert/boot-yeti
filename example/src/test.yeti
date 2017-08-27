@@ -5,10 +5,8 @@ fac x = fold (*) 1 [1 .. x];
 
 class Main
     static void main(String[] argv)
-        if length(argv) == 1 then
-           n = Integer#parseInt(argv[0]);
-           println (fac n)
-        else
-           println "Please supply the number to compute the factorial of." 
-        fi;
+      println (case length(argv) of
+        1: string (fac Integer#parseInt(argv[0]));
+        _: "Please supply the number to compute the factorial of."
+      esac)
 end;
