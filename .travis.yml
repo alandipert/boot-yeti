@@ -3,7 +3,7 @@ sudo: false
 jdk:
 - oraclejdk8
 install:
-- wget -O boot https://github.com/boot-clj/boot/releases/download/2.3.0/boot.sh
+- wget -O boot https://github.com/boot-clj/boot/releases/download/2.7.2/boot.sh
 - chmod 755 boot
 - export PATH="$PWD:$PATH"
 script: boot build-jar && cd example/ && boot yeti run -m fac.Main -a 5 && boot yeti uber jar -m fac.Main && java -jar target/project.jar 5
